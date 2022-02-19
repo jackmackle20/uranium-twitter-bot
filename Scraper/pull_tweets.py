@@ -2,18 +2,24 @@ import json
 import sqlite3 
 import pandas as pd
 import tweepy as tw
+import logging
 
 config = "config.json"
 
+logging.basicConfig(filename="logs/pull_tweets.log",
+                        format="%(asctime)s %(message)s",
+                        encoding="utf-8",
+                        level=logging.DEBUG)
+
 def authenticator(config):
-    config = open("config.json", "r")
+    config = open(config, "r")
     config = json.load(config)
 
     api_key = config["api_key"]
     api_key_secret = config["api_key_secret"]
     access_token = config["access_token"]
     access_token_secret = config["access_token_secret"]
-
+    
     authenticator = tw.OAuthHandler(api_key, api_key_secret)
     authenticator.set_access_token(access_token, access_token_secret)
 
@@ -65,16 +71,21 @@ def return_tweet_data(q):
     
     return pd.DataFrame(tweet_data)
 
-tweet_data = return_tweet_data("'#uranium' since:2022-02-01 -filter:retweets")
+#tweet_data = return_tweet_data("'#uranium' since:2022-02-01 -filter:retweets")
 
-def write_to_db(db, tweet_data):
-    conn = sqlite3.connect(db)
+def write_to_db(q):
+    conn = sqlite3.connect("storage/storage.db")
+    tweet_data = return_tweet_data(q)
+    
+    logging.info(f"entries added: {tweet_data.shape[0]}")
+    
     tweet_data.to_sql("tweets", 
                       conn,
                       if_exists="replace")
-    conn.close
+    conn.close()
+
+
     
-write_to_db("storage/storage.db", tweet_data)
 
 
             
