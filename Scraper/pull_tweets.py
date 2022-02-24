@@ -73,23 +73,19 @@ def return_tweet_data(q):
 
 #tweet_data = return_tweet_data("'#uranium' since:2022-02-01 -filter:retweets")
 
-def write_to_db(q):
-    conn = sqlite3.connect("storage/storage.db")
+def write_to_db(q, db, if_exists):
+    conn = sqlite3.connect(db)
     tweet_data = return_tweet_data(q)
     
-    logging.info(f"entries added: {tweet_data.shape[0]}")
+    #logging.info(f"entries added: {tweet_data.shape[0]}")
     
     tweet_data.to_sql("tweets", 
                       conn,
-                      if_exists="replace")
+                      if_exists=if_exists)
     conn.close()
 
-
-    
-
-
-            
-
+def sample(my_text):
+    print(my_text)
     
     
 
