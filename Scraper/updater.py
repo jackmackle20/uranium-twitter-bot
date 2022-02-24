@@ -19,4 +19,6 @@ pull_tweets.write_to_db(f"'#uranium' since:{'2022-02-24'} -filter:retweets",
 
 pull_tweets.sample("test")
 
+conn.close()
+
     
