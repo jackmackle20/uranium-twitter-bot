@@ -4,3 +4,4 @@ config.json
 .vscode
 __pycache__/
 logs/
+storage/

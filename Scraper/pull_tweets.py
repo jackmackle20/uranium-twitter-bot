@@ -3,10 +3,15 @@ import sqlite3
 import pandas as pd
 import tweepy as tw
 import logging
+import os
 
 config = "config.json"
 
-logging.basicConfig(filename="logs/pull_tweets.log",
+log_path = os.path.dirname(os.path.realpath("logs"))
+log_filename = os.path.join(log_path, "logs/pull_tweets.log")
+print(log_filename)
+
+logging.basicConfig(filename=log_filename,
                         format="%(asctime)s %(message)s",
                         encoding="utf-8",
                         level=logging.DEBUG)
@@ -69,23 +74,26 @@ def return_tweet_data(q):
             "user_name" : user_name,
             "user_followers_coubt" : user_followers_count}
     
-    return pd.DataFrame(tweet_data)
+    df = pd.DataFrame(tweet_data)
+
+    return df
 
 #tweet_data = return_tweet_data("'#uranium' since:2022-02-01 -filter:retweets")
 
-def write_to_db(q, db, if_exists):
-    conn = sqlite3.connect(db)
+def write_to_db(q, db_dir, db, if_exists):
+    db_path = os.path.dirname(os.path.realpath(db_dir))
+    db_filename = os.path.join(db_path, db)
+    
+    conn = sqlite3.connect(db_filename)
     tweet_data = return_tweet_data(q)
     
-    #logging.info(f"entries added: {tweet_data.shape[0]}")
+    logging.info(f"entries added: {tweet_data.shape[0]}")
     
     tweet_data.to_sql("tweets", 
                       conn,
-                      if_exists=if_exists)
+                      if_exists=if_exists,
+                      index=False)
     conn.close()
-
-def sample(my_text):
-    print(my_text)
     
     
 
