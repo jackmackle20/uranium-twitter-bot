@@ -5,7 +5,7 @@ from datetime import date
 def update_database():
     today = date.today()
 
-    pull_tweets.write_to_db(f"'#uranium' since:2022-02-22 -filter:retweets",
+    pull_tweets.write_to_db(f"'#uranium' {today} -filter:retweets",
                             "storage/storage.db",
                             "storage.db",
                             "append")
