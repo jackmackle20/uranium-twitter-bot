@@ -2,12 +2,13 @@ import pull_tweets
 import sqlite3
 from datetime import date
 import os
+import pandas as pd
 import logging
 
 def update_database():
     today = date.today()
 
-    pull_tweets.write_to_db(f"'#uranium' since:{today} -filter:retweets",
+    pull_tweets.write_to_db(f"'#uranium' since:2022-03-01 -filter:retweets",
                             "storage/storage.db",
                             "storage.db",
                             "append")
@@ -18,7 +19,7 @@ def run_logger():
     log_path = os.path.dirname(os.path.realpath("logs"))
     log_filename = os.path.join(log_path, "logs/pull_tweets.log")
         
-    logger = logging.getLogger("updater")
+    logger = logging.getLogger("updater_test")
     logger.setLevel(logging.DEBUG)
 
     ch = logging.FileHandler(filename=log_filename)
@@ -35,4 +36,6 @@ def run_logger():
 if __name__ == "__main__":
     update_database()
     run_logger()
+    
+    
     

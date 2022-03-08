@@ -2,19 +2,11 @@ import json
 import sqlite3 
 import pandas as pd
 import tweepy as tw
-import logging
 import os
 
 config = "config.json"
 
-log_path = os.path.dirname(os.path.realpath("logs"))
-log_filename = os.path.join(log_path, "logs/pull_tweets.log")
-print(log_filename)
-
-logging.basicConfig(filename=log_filename,
-                        format="%(asctime)s %(message)s",
-                        encoding="utf-8",
-                        level=logging.DEBUG)
+log = {}
 
 def authenticator(config):
     config = open(config, "r")
@@ -75,10 +67,10 @@ def return_tweet_data(q):
             "user_followers_coubt" : user_followers_count}
     
     df = pd.DataFrame(tweet_data)
+    
+    log["entries_added"] = df.shape[0]
 
     return df
-
-#tweet_data = return_tweet_data("'#uranium' since:2022-02-01 -filter:retweets")
 
 def write_to_db(q, db_dir, db, if_exists):
     db_path = os.path.dirname(os.path.realpath(db_dir))
@@ -87,13 +79,32 @@ def write_to_db(q, db_dir, db, if_exists):
     conn = sqlite3.connect(db_filename)
     tweet_data = return_tweet_data(q)
     
-    logging.info(f"entries added: {tweet_data.shape[0]}")
-    
     tweet_data.to_sql("tweets", 
                       conn,
                       if_exists=if_exists,
                       index=False)
+    
+    #check for duplicates
+    df = pd.read_sql_query("SELECT * FROM tweets",
+                           conn)
+    
+    init = df.shape[0]
+    
+    df = df.drop_duplicates(subset=["tweet_id"])
+    
+    fin = df.shape[0]
+    
+    log["duplicates_removed"] = init - fin 
+    
+    df.to_sql("tweets",
+              conn,
+              if_exists="replace",
+              index=False)
+    
     conn.close()
+    
+def return_log():
+    return log
     
     
 
