@@ -18,10 +18,5 @@ def query_db():
     return df 
 
 def do_vader():
-    sid = SentimentIntensityAnalyzer()
-    
-    df = query_db()
-    
-    tw_text = df["full_text"].tolist()
     
     
