@@ -4,9 +4,14 @@ from datetime import date
 import os
 import logging
 
-def update_database():
-    today = date.today()
+today = date.today()
+tempd_path = os.path.dirname(os.path.realpath("logs"))
+tempd_filename = os.path.join(tempd_path, "logs/tempd.txt")
 
+with open(tempd_filename, "w") as t:
+    t.write(str(today))
+    
+def update_database():
     pull_tweets.write_to_db(f"'#uranium' since:{today} -filter:retweets",
                             "storage/storage.db",
                             "storage.db",
@@ -31,6 +36,7 @@ def run_logger():
     
     logger.info(f"entries added: {log['entries_added']}")
     logger.info(f"duplicates removed: {log['duplicates_removed']}")
+    logger.info(f"today: {today}")
     
 if __name__ == "__main__":
     update_database()

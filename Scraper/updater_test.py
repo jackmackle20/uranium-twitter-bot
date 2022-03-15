@@ -32,6 +32,7 @@ def run_logger():
     
     logger.info(f"entries added: {log['entries_added']}")
     logger.info(f"duplicates removed: {log['duplicates_removed']}")
+    logger.info(f"today: {today}")
     
 if __name__ == "__main__":
     update_database()
