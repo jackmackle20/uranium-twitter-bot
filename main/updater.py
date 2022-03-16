@@ -1,10 +1,10 @@
 import pull_tweets
 import sqlite3
-from datetime import date
+from datetime import date, timedelta
 import os
 import logging
 
-today = date.today()
+today = date.today() - timedelta(days=1)
 tempd_path = os.path.dirname(os.path.realpath("logs"))
 tempd_filename = os.path.join(tempd_path, "logs/tempd.txt")
 

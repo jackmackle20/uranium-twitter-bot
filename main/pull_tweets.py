@@ -2,30 +2,13 @@ import json
 import sqlite3 
 import pandas as pd
 import tweepy as tw
+import twitter_api
 import os
-
-config = "config.json"
 
 log = {}
 
-def authenticator(config):
-    config = open(config, "r")
-    config = json.load(config)
-
-    api_key = config["api_key"]
-    api_key_secret = config["api_key_secret"]
-    access_token = config["access_token"]
-    access_token_secret = config["access_token_secret"]
-    
-    authenticator = tw.OAuthHandler(api_key, api_key_secret)
-    authenticator.set_access_token(access_token, access_token_secret)
-
-    api = tw.API(authenticator, wait_on_rate_limit=True)
-    
-    return api
-
 def return_tweet_data(q):
-    response = tw.Cursor(authenticator(config).search_tweets,
+    response = tw.Cursor(twitter_api.authenticator().search_tweets,
                          q=q,
                          lang="en",
                          tweet_mode="extended",
