@@ -52,6 +52,6 @@ def run_logger():
     
 if __name__ == "__main__":
     update_database()
-    make_tweet()
+    #make_tweet()
     run_logger()
     

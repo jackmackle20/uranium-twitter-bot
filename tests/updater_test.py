@@ -9,8 +9,8 @@ def update_database():
     today = date.today()
 
     pull_tweets.write_to_db(f"'#uranium' since:2022-03-11 -filter:retweets",
-                            "storage/storage.db",
-                            "storage.db",
+                            "storage/test.db",
+                            "test.db",
                             "append")
 
 def run_logger():
