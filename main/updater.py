@@ -32,7 +32,7 @@ def run_logger():
     log = pull_tweets.return_log()
     
     log_path = os.path.dirname(os.path.realpath("logs"))
-    log_filename = os.path.join(log_path, "logs/pull_tweets.log")
+    log_filename = os.path.join(log_path, "logs/updater.log")
         
     logger = logging.getLogger("updater")
     logger.setLevel(logging.DEBUG)
