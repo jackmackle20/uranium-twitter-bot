@@ -1,8 +1,6 @@
 import json
 import tweepy as tw
 
-config = "config.json"
-
 def authenticator():
     config = open("config.json", "r")
     config = json.load(config)

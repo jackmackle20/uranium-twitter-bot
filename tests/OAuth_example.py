@@ -2,7 +2,7 @@ from requests_oauthlib import OAuth1Session
 import os
 import json
 
-config = open("config.json", "r")
+config = open("config_bot.json", "r")
 config = json.load(config)
 
 consumer_key = config["api_key"]
@@ -49,8 +49,8 @@ oauth_tokens = oauth.fetch_access_token(access_token_url)
 access_token = oauth_tokens["oauth_token"]
 access_token_secret = oauth_tokens["oauth_token_secret"]
 
-print(access_token)
-print(access_token_secret)
+print("access_token:" + access_token)
+print("at_secret:" + access_token_secret)
 # Make the request
 oauth = OAuth1Session(
     consumer_key,
