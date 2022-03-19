@@ -2,7 +2,7 @@
 
 Over the past year I have become heavily interested in the emerging Uranium bull market. To stay informed, I pay close attention to uranium Twitter, which is filled with panicky retail investors (myself included), reputable media outlets, and a few uranium market experts with high conviction for this investment thesis. 
 
-I was interested in understanding the general sentiment of the investment community towards uranium, so I came up with this bot. You can check out the bot on Twitter [@u3o8_botman](https://twitter.com/u3o8_botman)
+I was interested in understanding the general sentiment of the investment community towards uranium, so I came up with this bot. You can check out the bot on Twitter [@u3o8_botman](https://twitter.com/u3o8_botman).
 
 # Description #
 
