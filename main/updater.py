@@ -15,7 +15,7 @@ with open(tempd_filename, "w") as t:
     t.write(str(today))
     
 def update_database():
-    pull_tweets.write_to_db(f"'#uranium' since:{today} -filter:retweets",
+    pull_tweets.write_to_db(f"'#uranium' since:20220316 -filter:retweets",
                             "storage/storage.db",
                             "storage.db",
                             "append")
@@ -48,7 +48,7 @@ def run_logger():
     logger.info(f"entries added: {log['entries_added']}")
     logger.info(f"duplicates removed: {log['duplicates_removed']}")
     logger.info(f"today: {today}")
-    logger.info(f"payload: {payload}")
+    #logger.info(f"payload: {payload}")
     
 if __name__ == "__main__":
     update_database()
