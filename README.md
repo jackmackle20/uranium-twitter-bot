@@ -19,3 +19,5 @@ I used the [VADER](https://github.com/cjhutto/vaderSentiment) (Valence Aware Dic
 I provisioned a basic virtual machine through Digital Ocean and run the bot with a cron job. The operating costs are ~ $3.60/month CAD. 
 
 
+
+
