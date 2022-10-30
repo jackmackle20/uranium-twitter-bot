@@ -5,9 +5,9 @@ with open("secrets.json", "r") as s:
     secrets = json.load(s)
 
 conn = psycopg2.connect(
-    host="db-postgresql-sfo3-89346-do-user-11001341-0.b.db.ondigitalocean.com",
+    host=secrets["do_host"],
     database="uranium-twitter",
     user="doadmin",
-    password=secrets["do_db"],
+    password=secrets["do_pass"],
     port="25060")
 
