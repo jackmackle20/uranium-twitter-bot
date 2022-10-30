@@ -1,5 +1,5 @@
 from google.cloud.sql.connector import Connector, IPTypes
-import psycopg2
+import sqlalchemy
 import json
 
 with open("secrets.json", "r") as s:
@@ -16,5 +16,8 @@ def getconn():
             ip_type= IPTypes.PUBLIC 
         )
         return conn
-    
-getconn()
+
+engine = sqlalchemy.create_engine(
+    "postgresql+pg8000://",
+    creator=getconn,
+)
