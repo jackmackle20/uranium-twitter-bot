@@ -1,0 +1,13 @@
+import psycopg2
+import json
+
+with open("secrets.json", "r") as s:
+    secrets = json.load(s)
+
+conn = psycopg2.connect(
+    host="db-postgresql-sfo3-89346-do-user-11001341-0.b.db.ondigitalocean.com",
+    database="uranium-twitter",
+    user="doadmin",
+    password=secrets["do_db"],
+    port="25060")
+
