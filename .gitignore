@@ -6,4 +6,5 @@ __pycache__/
 logs/
 storage/
 config_bot.json
+secrets
 
