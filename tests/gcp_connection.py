@@ -1,5 +1,5 @@
 from google.cloud.sql.connector import Connector, IPTypes
-import sqlalchemy
+import sqlalchemy as db
 import json
 
 with open("secrets.json", "r") as s:
@@ -17,7 +17,19 @@ def getconn():
         )
         return conn
 
-engine = sqlalchemy.create_engine(
+engine = db.create_engine(
     "postgresql+pg8000://",
-    creator=getconn,
-)
+    creator=getconn())
+
+metadata = db.MetaData()
+
+profile = db.Table(
+    'test_table',
+    metadata,
+    db.Column('col1', db.String, primary_key=True),
+    db.Column('Col2', db.Integer))
+
+metadata.create_all(engine)
+
+
+    
